@@ -19,13 +19,16 @@ add a (x:xs) = if x < a
 			   	a : x : xs
 
 
-
--- has :: Eq a => a -> Set a -> Bool 
--- has a [] = False
--- has a (x:xs) = if x == a
--- 				then True
--- 			   else
--- 			   	 has a (xs)
+-- 6 [1,2,3,4,5] 
+has :: Ord a => Eq a => a -> Set a -> Bool 
+has a [] = False
+			-- split the set in half and see if a is equal to less than or greater than this middle element:
+has a set = if a == set !! ((length set) `div` 2) 
+				then True
+			else if a < set !! ((length set) `div` 2) 
+				then has a (take ((length set) `div` 2) set)
+			else --if a > set !! ((length set) `div` 2)
+				has a (drop ((length set) `div` 2) set)
 
 -- card :: Set a -> Int
 -- card [] = 0
