@@ -1,11 +1,21 @@
 \begin{code}
--- helper function:
+
+-- helper functions:
+
 addAll :: Ord a => [a] -> Set a
 addAll [] = Empty
 addAll (x:xs) = if x `elem` xs -- no duplicates allowed!
 					then addAll(xs)
 				else
 					add x (addAll (xs))  
+
+-- breadth first tree traversal to obtain the values from the BST:
+toArray :: Set a -> [a]
+toArray Empty = []
+toArray (Leaf v) = [v]
+toArray (Node v left right) = (v : toArray left) ++ toArray right
+
+
 \end{code}
 
 \begin{code}
@@ -44,14 +54,8 @@ card Empty = 0
 card (Leaf v) = 1
 card (Node v left right) = 1 + card(left) + card(right)
 
-
-
-
-
-
-
+union :: Ord a => Set a -> Set a -> Set a
+union set1 set2 = makeSet (toArray set1 ++ toArray set2)
 
 
 \end{code}
-
-
