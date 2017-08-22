@@ -1,4 +1,6 @@
--- unordered set: 
+\begin{code}
+
+-- Unordered set: 
 type Set a = [a]
 
 makeSet :: Eq a => [a] -> Set a
@@ -75,3 +77,4 @@ subset (x:xs) set2 = if (x `elem` set2)
 select :: (a -> Bool) -> Set a -> Set a 
 select a set = filter a set
 
+\end{code}
