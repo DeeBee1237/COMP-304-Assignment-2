@@ -31,7 +31,7 @@ has a set = if a == set !! ((length set) `div` 2)
 
 card :: Set a -> Int
 card [] = 0
-card (x:xs) = 1 + card (xs)
+card (x:xs) = foldl (\inc x -> inc + 1) 1 xs
 
 
 del :: Eq a => a -> Set a -> Set a

@@ -12,14 +12,12 @@ makeSet (x:xs) = if x `elem` xs
 
 has :: Eq a => a -> Set a -> Bool 
 has a [] = False
-has a (x:xs) = if x == a
-				then True
-			   else
-			   	 has a (xs)
+has a xs = foldl (\inc n -> if a == n then True else inc) False xs
+
 
 card :: Set a -> Int
 card [] = 0
-card (x:xs) = 1 + card (xs)
+card (x:xs) = foldl (\inc x -> inc + 1) 1 xs
 
 
 add :: Eq a => a -> Set a -> Set a
