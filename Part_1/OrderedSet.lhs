@@ -60,13 +60,21 @@ intersect set1 (x:xs) = if x `elem` set1 -- set 1 is what we check against, the 
 
 equals :: Eq a => Set a -> Set a -> Bool 
 equals [] [] = True
-equals set1 [] = False
-equals [] set2 = False
-equals set1 set2 = if length set1 /= length set2
-						then False
-					else if head set1 /= head set2
-						then False
-					else equals (tail set1) (tail set2)
+equals (x:xs) (y:ys) =  if (length (x:xs) /= length (y:ys))
+							then False
+						else if ((\a b -> a == b) x y)
+							then equals xs ys
+						else 
+							False 
+
+-- equals [] [] = True
+-- equals set1 [] = False
+-- equals [] set2 = False
+-- equals set1 set2 = if length set1 /= length set2
+-- 						then False
+-- 					else if head set1 /= head set2
+-- 						then False
+-- 					else equals (tail set1) (tail set2)
 
 					
 subset :: Eq a => Set a -> Set a -> Bool 
