@@ -120,8 +120,8 @@ select cond set = makeSet (listSelect cond (toArray set))
 
 
 
-
-
+-- for help later:
+-- https://stackoverflow.com/questions/9393575/delete-function-in-binary-search-tree-in-haskell
 
 
 \end{code}
