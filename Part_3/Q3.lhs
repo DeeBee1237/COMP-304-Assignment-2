@@ -55,10 +55,51 @@ makeGraph (vert, edges) = if (firstFromTupleNotInVert vert edges) || (lastFromTu
 						  	(vert, edges)
 
 
-predecessors :: Graph a b -> a -> Set a
-predecessors graph a = []
-					
+predecessors :: Eq a => Graph a b -> a -> Set a
+predecessors (vert,[]) vertex = []
+predecessors (vert, ((x,y,z):rest)) vertex = if z == vertex
+												then x :  predecessors (vert,rest) vertex
+											else 
+												predecessors (vert,rest) vertex
 
+
+successors :: Eq a => Graph a b -> a -> Set a
+successors (vert,[]) vertex = []
+successors (vert, ((x,y,z):rest)) vertex = if x == vertex
+											then z : successors (vert,rest) vertex
+										   else 
+											successors (vert,rest) vertex
+
+
+-- TODO:
+isConnected :: Graph a b -> a -> Bool
+isConnected graph vertex = False 
 
 
 \end{code}
+
+\begin{verbatim}
+
+some tests from the command line:
+
+*Main> let x = makeGraph (["c","b","d"],[("c",9,"b"),("b",1,"c"),("b",2,"d"),("d",1,"b"),("c",3,"d"),("d",8,"c")])
+*Main> x
+(["c","b","d"],[("c",9,"b"),("b",1,"c"),("b",2,"d"),("d",1,"b"),("c",3,"d"),("d",8,"c")])
+*Main> predecessors x "d"
+["b","c"]
+*Main> 
+*Main> 
+*Main> predecessors x "c"
+["b","d"]
+*Main> predecessors x "b"
+["c","d"]
+
+let y = makeGraph (["a","b","c","d"],[("c",1,"a"),("c",3,"b"),("c",4,"d"),("b",2,"a"),("d",5,"b")])
+
+\end{verbatim}
+
+
+
+
+
+
